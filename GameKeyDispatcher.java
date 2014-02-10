@@ -1,6 +1,7 @@
 import city.cs.engine.DynamicBody;
 import city.cs.engine.StepEvent;
 import city.cs.engine.World;
+import objects.Bullet;
 import org.jbox2d.common.Vec2;
 
 import java.awt.event.KeyAdapter;

@@ -1,5 +1,9 @@
 import city.cs.engine.UserView;
 import city.cs.engine.World;
+import objects.Bird;
+import objects.Enemy;
+import objects.PlatformGenerator;
+import objects.Wall;
 import org.jbox2d.common.Vec2;
 import points.PointsChangeEvent;
 import points.PointsChangeListener;

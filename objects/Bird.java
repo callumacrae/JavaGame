@@ -1,3 +1,5 @@
+package objects;
+
 import city.cs.engine.*;
 import points.PointsHandler;
 

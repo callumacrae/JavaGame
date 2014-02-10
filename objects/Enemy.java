@@ -1,3 +1,5 @@
+package objects;
+
 import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
