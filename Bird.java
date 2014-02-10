@@ -1,4 +1,5 @@
 import city.cs.engine.*;
+import points.PointsHandler;
 
 /**
  * Create a new DynamicBody in the shape of a bird.
@@ -22,7 +23,7 @@ public class Bird extends DynamicBody {
 			@Override
 			public void collide(CollisionEvent collisionEvent) {
 				if (collisionEvent.getOtherBody() instanceof Enemy) {
-					System.out.println("You lose!");
+					PointsHandler.removePoints(10);
 				}
 			}
 		});

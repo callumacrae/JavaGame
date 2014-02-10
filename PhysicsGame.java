@@ -1,6 +1,9 @@
 import city.cs.engine.UserView;
 import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
+import points.PointsChangeEvent;
+import points.PointsChangeListener;
+import points.PointsHandler;
 
 import javax.swing.*;
 
@@ -32,6 +35,14 @@ public class PhysicsGame {
 		// Create bird
 		Bird bird = new Bird(world);
 		bird.setPosition(new Vec2(0, -11));
+
+		PointsHandler.addChangeListener(new PointsChangeListener() {
+			@Override
+			public void changed(PointsChangeEvent pointsChangeEvent) {
+				System.out.println(pointsChangeEvent.points);
+			}
+		});
+
 
 
 		// Create the view and stuff. Everything below here is boring.

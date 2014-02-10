@@ -1,4 +1,5 @@
 import city.cs.engine.*;
+import points.PointsHandler;
 
 /**
  * Create a DynamicBody in the shape of an image. Handles appearance and
@@ -27,6 +28,8 @@ public class Bullet extends DynamicBody {
 				if (otherBody instanceof Enemy) {
 					Bullet.this.destroy();
 					otherBody.destroy();
+
+					PointsHandler.addPoints(5);
 				}
 			}
 		});
