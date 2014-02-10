@@ -20,6 +20,6 @@ public class PlatformGenerator {
 		Shape shape = new BoxShape(Math.abs(length), 0.5f);
 
 		Body platform = new StaticBody(world, shape);
-		platform.setPosition(new Vec2((length < 0 ? -10 : 10) - length, y));
+		platform.setPosition(new Vec2(12 * (length > 0 ? 1 : -1) - length, y));
 	}
 }
