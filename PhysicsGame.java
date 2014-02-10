@@ -36,17 +36,20 @@ public class PhysicsGame {
 		Bird bird = new Bird(world);
 		bird.setPosition(new Vec2(0, -11));
 
+		// Display points
+		final JLabel pointsLabel = new JLabel(String.format("Points: %d", PointsHandler.getPoints()));
+		pointsLabel.setLocation(10, 10);
 		PointsHandler.addChangeListener(new PointsChangeListener() {
 			@Override
 			public void changed(PointsChangeEvent pointsChangeEvent) {
-				System.out.println(pointsChangeEvent.points);
+				pointsLabel.setText(String.format("Points: %d", pointsChangeEvent.points));
 			}
 		});
 
 
-
 		// Create the view and stuff. Everything below here is boring.
 		UserView view = new UserView(world, 600, 600);
+		view.add(pointsLabel);
 
 		final JFrame frame = new JFrame("Game");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
