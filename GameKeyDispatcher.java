@@ -1,6 +1,7 @@
 import city.cs.engine.DynamicBody;
 import city.cs.engine.StepEvent;
 import city.cs.engine.World;
+import helpers.StepAdapter;
 import objects.Bullet;
 import org.jbox2d.common.Vec2;
 
