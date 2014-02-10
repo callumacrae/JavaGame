@@ -21,7 +21,7 @@ public class GameKeyDispatcher extends KeyAdapter {
 	 * Set up the event handler.
 	 *
 	 * @param playerBody The main character.
-	 * @param world The world.
+	 * @param world      The world.
 	 */
 	public GameKeyDispatcher(DynamicBody playerBody, World world) {
 		this.playerBody = playerBody;

@@ -18,11 +18,11 @@ public class PlatformGenerator {
 	/**
 	 * Generate a platform from a length and y position.
 	 *
-	 * @param world The world to add the platform to.
+	 * @param world  The world to add the platform to.
 	 * @param length The desired length of the platform. If positive, will be
 	 *               positioned on the right. If negative, will be positioned
 	 *               on the left.
-	 * @param y The desired y position of the platform.
+	 * @param y      The desired y position of the platform.
 	 */
 	public static void generate(World world, float length, float y) {
 		for (int i = -1; i < Math.abs(length) * 2; i++) {

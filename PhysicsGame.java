@@ -31,10 +31,10 @@ public class PhysicsGame {
 
 		// Create enemies
 		Vec2[] enemies = {
-			new Vec2(5, -4.5f),
-			new Vec2(2.5f, 0.5f),
-			new Vec2(-4, 5.5f),
-			new Vec2(5, 8)
+				new Vec2(5, -4.5f),
+				new Vec2(2.5f, 0.5f),
+				new Vec2(-4, 5.5f),
+				new Vec2(5, 8)
 		};
 		for (Vec2 enemyPosition : enemies) {
 			new Enemy(world, player).setPosition(enemyPosition);
