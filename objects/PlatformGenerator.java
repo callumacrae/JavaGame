@@ -9,6 +9,12 @@ import org.jbox2d.common.Vec2;
 public class PlatformGenerator {
 	private PlatformGenerator() {}
 
+	private static final BodyImage platformLeft = new BodyImage("data/platformtiles/platform_left.png");
+	private static final BodyImage platformCentre = new BodyImage("data/platformtiles/platform_centre.png");
+	private static final BodyImage platformRight = new BodyImage("data/platformtiles/platform_right.png");
+
+	private static final Shape shape = new BoxShape(0.5f, 0.5f);
+
 	/**
 	 * Generate a platform from a length and y position.
 	 *
@@ -19,9 +25,17 @@ public class PlatformGenerator {
 	 * @param y The desired y position of the platform.
 	 */
 	public static void generate(World world, float length, float y) {
-		Shape shape = new BoxShape(Math.abs(length), 0.5f);
+		for (int i = -1; i < Math.abs(length) * 2; i++) {
+			Body tile = new Tile(world, shape);
+			tile.setPosition(new Vec2((5.5f - (i == -1 ? -0.5f : i)) * (length > 0 ? 1 : -1), y));
 
-		Body platform = new StaticBody(world, shape);
-		platform.setPosition(new Vec2(12 * (length > 0 ? 1 : -1) - length, y));
+			if (i == length * 2 - 1 && length != 6) {
+				tile.setImage(platformLeft);
+			} else if (-i == length * 2 + 1) {
+				tile.setImage(platformRight);
+			} else {
+				tile.setImage(platformCentre);
+			}
+		}
 	}
 }

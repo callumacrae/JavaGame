@@ -8,7 +8,7 @@ import points.PointsHandler;
  * collisions, but does not handle position and velocity.
  */
 public class Bullet extends DynamicBody {
-	private static final Shape bullet = new CircleShape(0.2f);
+	private static final Shape bullet = new CircleShape(0.1f);
 
 	/**
 	 * Creates the bullet.
@@ -25,7 +25,11 @@ public class Bullet extends DynamicBody {
 			public void collide(CollisionEvent collisionEvent) {
 				Body otherBody = collisionEvent.getOtherBody();
 
-				if (otherBody instanceof Bird || otherBody instanceof Wall) {
+				if (otherBody instanceof Player) {
+					Bullet.this.destroy();
+				}
+
+				if (otherBody instanceof Tile && ((Tile) otherBody).getKillBullets()) {
 					Bullet.this.destroy();
 				}
 

@@ -1,24 +1,40 @@
 package objects;
 
-import city.cs.engine.PolygonShape;
-import city.cs.engine.Shape;
-import city.cs.engine.StaticBody;
-import city.cs.engine.World;
+import city.cs.engine.*;
+import helpers.StepAdapter;
 
 /**
  * Create a new DynamicBody for an enemy.
  */
 public class Enemy extends StaticBody {
-	private static final Shape shape = new PolygonShape(0.149f, 0.975f, 0.775f, 0.193f, 0.772f, -0.099f, 0.401f, -0.928f, -0.36f, -0.922f, -0.719f, -0.025f, -0.725f, 0.163f, -0.14f, 0.972f);
+	private static final Shape shape = new BoxShape(0.5f, 0.5f);
+	private static final BodyImage imageLeft = new BodyImage("data/platformtiles/alien_left.png");
+	private static final BodyImage imageRight = new BodyImage("data/platformtiles/alien_right.png");
 
 	/**
-	 * Create a new DynamicBody in the shape of a bird with the bird image.
+	 * Create a new DynamicBody with the alien image.
 	 *
-	 * @param world The world that the Bird should be added to.
+	 * @param world The world that the Enemy should be added to.
 	 */
-	public Enemy(World world) {
+	public Enemy(World world, final Player player) {
 		super(world, shape);
 
-//		this.setImage(new BodyImage("data/yellow-bird.gif", 2.25f));
+		this.setImage(imageLeft);
+
+		// This makes the alien face the direction of our character.
+		world.addStepListener(new StepAdapter() {
+			@Override
+			public void preStep(StepEvent stepEvent) {
+				super.preStep(stepEvent);
+
+				if (player.getPosition().x < Enemy.this.getPosition().x) {
+					if (Enemy.this.getImage() == imageRight) {
+						Enemy.this.setImage(imageLeft);
+					}
+				} else if (Enemy.this.getImage() == imageLeft) {
+					Enemy.this.setImage(imageRight);
+				}
+			}
+		});
 	}
 }

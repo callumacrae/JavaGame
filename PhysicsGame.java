@@ -1,9 +1,9 @@
 import city.cs.engine.UserView;
 import city.cs.engine.World;
-import objects.Bird;
 import objects.Enemy;
 import objects.PlatformGenerator;
-import objects.Wall;
+import objects.Player;
+import objects.WallGenerator;
 import org.jbox2d.common.Vec2;
 import points.PointsChangeEvent;
 import points.PointsChangeListener;
@@ -16,29 +16,29 @@ public class PhysicsGame {
 		World world = new World();
 
 		// Build the walls
-		new Wall(world).setPosition(new Vec2(-12.5f, 0));
-		new Wall(world).setPosition(new Vec2(12.5f, 0));
+		WallGenerator.generateWall(world, 6.25f);
+		WallGenerator.generateWall(world, -6.25f);
 
 		// Create platforms
-		int[] lengths = {12, 3, -6, 8, 3, -3, 5};
+		float[] lengths = {6, 1.5f, -3, 4, 1.5f, -1.5f, 2.5f};
 		for (int i = 0; i < lengths.length; i++) {
-			PlatformGenerator.generate(world, lengths[i], 3.5f * i - 12.5f);
+			PlatformGenerator.generate(world, lengths[i], 2.5f * i - 8f);
 		}
+
+		// Create our character
+		Player player = new Player(world);
+		player.setPosition(new Vec2(0, -6));
 
 		// Create enemies
 		Vec2[] enemies = {
-			new Vec2(10, -7.5f),
-			new Vec2(5, -0.5f),
-			new Vec2(-7, 6.5f),
-			new Vec2(10, 10)
+			new Vec2(5, -4.5f),
+			new Vec2(2.5f, 0.5f),
+			new Vec2(-4, 5.5f),
+			new Vec2(5, 8)
 		};
 		for (Vec2 enemyPosition : enemies) {
-			new Enemy(world).setPosition(enemyPosition);
+			new Enemy(world, player).setPosition(enemyPosition);
 		}
-
-		// Create bird
-		Bird bird = new Bird(world);
-		bird.setPosition(new Vec2(0, -11));
 
 		// Display points
 		final JLabel pointsLabel = new JLabel(String.format("Points: %d", PointsHandler.getPoints()));
@@ -52,8 +52,9 @@ public class PhysicsGame {
 
 
 		// Create the view and stuff. Everything below here is boring.
-		UserView view = new UserView(world, 600, 600);
+		UserView view = new UserView(world, 600, 700);
 		view.add(pointsLabel);
+		view.setView(new Vec2(0, 0), 32);
 
 		final JFrame frame = new JFrame("Game");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +64,7 @@ public class PhysicsGame {
 		frame.pack();
 		frame.setVisible(true);
 
-		frame.addKeyListener(new GameKeyDispatcher(bird, world));
+		frame.addKeyListener(new GameKeyDispatcher(player, world));
 
 //		view.setGridResolution(1);
 //		JFrame debugView = new DebugViewer(world, 500, 500);

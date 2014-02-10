@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
  * Handle all key events in the game.
  */
 public class GameKeyDispatcher extends KeyAdapter {
-	private DynamicBody birdBody;
+	private DynamicBody playerBody;
 	private World world;
 
 	private int horizontal;
@@ -20,18 +20,18 @@ public class GameKeyDispatcher extends KeyAdapter {
 	/**
 	 * Set up the event handler.
 	 *
-	 * @param birdBody The main character.
+	 * @param playerBody The main character.
 	 * @param world The world.
 	 */
-	public GameKeyDispatcher(DynamicBody birdBody, World world) {
-		this.birdBody = birdBody;
+	public GameKeyDispatcher(DynamicBody playerBody, World world) {
+		this.playerBody = playerBody;
 		this.world = world;
 
 		// Reapply force on ever step to simulate a continuous force.
 		world.addStepListener(new StepAdapter() {
 			@Override
 			public void preStep(StepEvent stepEvent) {
-				GameKeyDispatcher.this.birdBody.applyForce(new Vec2(horizontal, 0));
+				GameKeyDispatcher.this.playerBody.applyForce(new Vec2(horizontal, 0));
 			}
 		});
 	}
@@ -44,11 +44,11 @@ public class GameKeyDispatcher extends KeyAdapter {
 
 			// Throw a bullet
 			case KeyEvent.VK_SPACE:
-				Vec2 birdVelocity = birdBody.getLinearVelocity();
-				float xVelocity = birdVelocity.x / 2 + 12 * (birdVelocity.x >= 0 ? 1 : -1);
+				Vec2 playerVelocity = playerBody.getLinearVelocity();
+				float xVelocity = playerVelocity.x + 12 * (playerVelocity.x >= 0 ? 1 : -1);
 
-				Vec2 position = birdBody.getPosition();
-				position.x += 0.9f * (birdVelocity.x >= 0 ? 1 : -1) + xVelocity / 20;
+				Vec2 position = playerBody.getPosition();
+				position.x += 0.3f * (playerVelocity.x >= 0 ? 1 : -1) + xVelocity / 20;
 				position.y += 0.5f;
 
 				final DynamicBody bullet = new Bullet(world);
@@ -59,24 +59,24 @@ public class GameKeyDispatcher extends KeyAdapter {
 			// Make the main character jump
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_W:
-				Vec2 currentVelocity = birdBody.getLinearVelocity();
+				Vec2 currentVelocity = playerBody.getLinearVelocity();
 
 				// For some reason, this takes a while to get to 0
 				if (Math.abs(currentVelocity.y) < 0.001) {
-					birdBody.setLinearVelocity(new Vec2(currentVelocity.x, 30));
+					playerBody.setLinearVelocity(new Vec2(currentVelocity.x, 25));
 				}
 				break;
 
 			// Apply a horizontal force
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_A:
-				this.horizontal = -200;
+				this.horizontal = -50;
 				break;
 
 			// Apply a horizontal force
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_D:
-				this.horizontal = 200;
+				this.horizontal = 50;
 				break;
 		}
 	}
