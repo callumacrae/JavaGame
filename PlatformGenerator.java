@@ -5,6 +5,8 @@ import org.jbox2d.common.Vec2;
  * A class to generate platforms.
  */
 public class PlatformGenerator {
+	private PlatformGenerator() {}
+
 	/**
 	 * Generate a platform from a length and y position.
 	 *
