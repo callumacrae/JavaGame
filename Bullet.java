@@ -23,6 +23,11 @@ public class Bullet extends DynamicBody {
 				if (otherBody instanceof Bird || otherBody instanceof Wall) {
 					Bullet.this.destroy();
 				}
+
+				if (otherBody instanceof Enemy) {
+					Bullet.this.destroy();
+					otherBody.destroy();
+				}
 			}
 		});
 

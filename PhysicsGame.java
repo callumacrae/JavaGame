@@ -18,6 +18,17 @@ public class PhysicsGame {
 			PlatformGenerator.generate(world, lengths[i], 3.5f * i - 12.5f);
 		}
 
+		// Create enemies
+		Vec2[] enemies = {
+			new Vec2(10, -7.5f),
+			new Vec2(5, -0.5f),
+			new Vec2(-7, 6.5f),
+			new Vec2(10, 10)
+		};
+		for (Vec2 enemyPosition : enemies) {
+			new Enemy(world).setPosition(enemyPosition);
+		}
+
 		// Create bird
 		Bird bird = new Bird(world);
 		bird.setPosition(new Vec2(0, -11));
