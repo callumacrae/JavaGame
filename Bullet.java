@@ -6,6 +6,8 @@ import points.PointsHandler;
  * collisions, but does not handle position and velocity.
  */
 public class Bullet extends DynamicBody {
+	private static final Shape bullet = new CircleShape(0.2f);
+
 	/**
 	 * Creates the bullet.
 	 *
@@ -34,9 +36,8 @@ public class Bullet extends DynamicBody {
 			}
 		});
 
-		Shape shape = new CircleShape(0.2f);
-		SolidFixture fixture = new SolidFixture(this, shape);
-		fixture.setRestitution(1f);
+		SolidFixture fixture = new SolidFixture(this, bullet);
+		fixture.setRestitution(1); // Bouncy bullets!
 		fixture.setFriction(0);
 	}
 }
