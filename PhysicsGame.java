@@ -1,7 +1,6 @@
 import city.cs.engine.UserView;
 import city.cs.engine.World;
 import objects.Player;
-import objects.WallGenerator;
 import org.jbox2d.common.Vec2;
 import points.PointsChangeEvent;
 import points.PointsChangeListener;
@@ -12,10 +11,6 @@ import javax.swing.*;
 public class PhysicsGame {
 	public static void main(String[] args) {
 		World world = new World();
-
-		// Build the walls
-		WallGenerator.generateWall(world, 6.25f);
-		WallGenerator.generateWall(world, -6.25f);
 
 		// Create character
 		Player player = new Player(world);

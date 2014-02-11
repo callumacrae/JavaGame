@@ -2,6 +2,7 @@ import city.cs.engine.World;
 import objects.Enemy;
 import objects.PlatformGenerator;
 import objects.Player;
+import objects.WallGenerator;
 import org.jbox2d.common.Vec2;
 
 public class Level {
@@ -16,6 +17,10 @@ public class Level {
 	}
 
 	public void drawTo(World world) {
+		// Build the walls
+		WallGenerator.generateWall(world, 6.25f);
+		WallGenerator.generateWall(world, -6.25f);
+
 		// Create platforms
 		for (int i = 0; i < platforms.length; i++) {
 			PlatformGenerator.generate(world, platforms[i], 2.5f * i - 8f);
