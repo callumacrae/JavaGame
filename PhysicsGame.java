@@ -15,18 +15,40 @@ public class PhysicsGame {
 		// Create character
 		Player player = new Player(world);
 
-		// Build level one
-		float[] platforms = {6, 1.5f, -3, 4, 1.5f, -1.5f, 2.5f};
-		Vec2[] enemies = {
-				new Vec2(5, -4.5f),
-				new Vec2(2.5f, 0.5f),
-				new Vec2(-4, 5.5f),
-				new Vec2(5, 8)
-		};
+		{
+			// Level one
+			float[] platforms = {6, 4.5f, 3, 1.5f, -4.5f, -3, -1.5f};
+			Vec2[] enemies = {
+					new Vec2(5, -7),
+					new Vec2(5, -4.5f),
+					new Vec2(5, -2f),
+					new Vec2(5, 0.5f),
+					new Vec2(-5, 3),
+					new Vec2(-5, 5.5f),
+					new Vec2(-5, 8)
+			};
 
-		final Level level1 = new Level(platforms, enemies, player);
-		level1.drawTo(world);
-		player.setPosition(new Vec2(0, -6));
+			final Level level = new Level(platforms, enemies, player);
+			level.drawTo(world);
+			player.setPosition(new Vec2(-4, -6));
+		}
+
+		{
+			// Level two
+			float[] platforms = {6, 1.5f, -3, 4, 1.5f, -1.5f, 2.5f};
+			Vec2[] enemies = {
+					new Vec2(5, -4.5f),
+					new Vec2(2.5f, 0.5f),
+					new Vec2(-4, 5.5f),
+					new Vec2(5, 8)
+			};
+
+			final Level level = new Level(platforms, enemies, player);
+//			level.drawTo(world);
+//			player.setPosition(new Vec2(0, -6));
+		}
+
+
 
 //		new Thread(new Runnable() {
 //			@Override
