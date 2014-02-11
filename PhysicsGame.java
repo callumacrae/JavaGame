@@ -1,5 +1,7 @@
 import city.cs.engine.UserView;
 import city.cs.engine.World;
+import levels.Level;
+import levels.LevelEventListener;
 import objects.Player;
 import org.jbox2d.common.Vec2;
 import points.PointsChangeEvent;
@@ -16,7 +18,7 @@ public class PhysicsGame {
 		Player player = new Player(world);
 
 		{
-			// Level one
+			// levels.Level one
 			float[] platforms = {6, 4.5f, 3, 1.5f, -4.5f, -3, -1.5f};
 			Vec2[] enemies = {
 					new Vec2(5, -7),
@@ -31,10 +33,17 @@ public class PhysicsGame {
 			final Level level = new Level(platforms, enemies, player);
 			level.drawTo(world);
 			player.setPosition(new Vec2(-4, -6));
+
+			level.addEventListener(new LevelEventListener() {
+				@Override
+				public void levelComplete() {
+					level.destroy();
+				}
+			});
 		}
 
 		{
-			// Level two
+			// levels.Level two
 			float[] platforms = {6, 1.5f, -3, 4, 1.5f, -1.5f, 2.5f};
 			Vec2[] enemies = {
 					new Vec2(5, -4.5f),

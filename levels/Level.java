@@ -1,7 +1,12 @@
+package levels;
+
+import city.cs.engine.CollisionEvent;
+import city.cs.engine.CollisionListener;
 import city.cs.engine.StaticBody;
 import city.cs.engine.World;
 import objects.*;
 import org.jbox2d.common.Vec2;
+import points.PointsHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +15,9 @@ public class Level {
 	private float[] platformLengths;
 	private Vec2[] enemiesStart;
 	private Player player;
+
+	private int remainingEnemies;
+	private ArrayList<LevelEventListener> listeners = new ArrayList<LevelEventListener>();
 
 	private ArrayList<StaticBody> bodyArray = new ArrayList<StaticBody>();
 
@@ -23,6 +31,8 @@ public class Level {
 		this.platformLengths = platformLengths;
 		this.enemiesStart = enemiesStart;
 		this.player = player;
+
+		remainingEnemies = enemiesStart.length;
 	}
 
 	/**
@@ -47,8 +57,26 @@ public class Level {
 
 		// Draw enemies
 		for (Vec2 enemyPosition : enemiesStart) {
-			Enemy enemy = new Enemy(world, player);
+			final Enemy enemy = new Enemy(world, player);
 			enemy.setPosition(enemyPosition);
+
+			enemy.addCollisionListener(new CollisionListener() {
+				@Override
+				public void collide(CollisionEvent collisionEvent) {
+					if (collisionEvent.getOtherBody() instanceof Bullet) {
+						enemy.destroy();
+						collisionEvent.getOtherBody().destroy();
+
+						PointsHandler.addPoints(5);
+
+						remainingEnemies--;
+
+						if (remainingEnemies == 0) {
+							System.out.println("Level complete");
+						}
+					}
+				}
+			});
 
 			bodyArray.add(enemy);
 		}
@@ -63,5 +91,23 @@ public class Level {
 		for (StaticBody body : bodyArray) {
 			body.destroy();
 		}
+	}
+
+	/**
+	 * Adds an event listener.
+	 *
+	 * @param levelEventListener The listener to add.
+	 */
+	public void addEventListener(LevelEventListener levelEventListener) {
+		listeners.add(levelEventListener);
+	}
+
+	/**
+	 * Removes an event listener.
+	 *
+	 * @param levelEventListener The exact listener to remove.
+	 */
+	public void removeEventListener(LevelEventListener levelEventListener) {
+		listeners.remove(levelEventListener);
 	}
 }
