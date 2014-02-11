@@ -1,6 +1,9 @@
 package objects;
 
-import city.cs.engine.*;
+import city.cs.engine.BodyImage;
+import city.cs.engine.BoxShape;
+import city.cs.engine.Shape;
+import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
 
 /**
@@ -24,9 +27,11 @@ public class PlatformGenerator {
 	 *               on the left.
 	 * @param y      The desired y position of the platform.
 	 */
-	public static void generate(World world, float length, float y) {
+	public static Tile[] generate(World world, float length, float y) {
+		Tile[] tiles = new Tile[(int) Math.floor(Math.abs(length) * 2 + 1)];
+
 		for (int i = -1; i < Math.abs(length) * 2; i++) {
-			Body tile = new Tile(world, shape);
+			Tile tile = new Tile(world, shape);
 			tile.setPosition(new Vec2((5.5f - (i == -1 ? -0.5f : i)) * (length > 0 ? 1 : -1), y));
 
 			if (i == length * 2 - 1 && length != 6) {
@@ -36,6 +41,10 @@ public class PlatformGenerator {
 			} else {
 				tile.setImage(platformCentre);
 			}
+
+			tiles[i + 1] = tile;
 		}
+
+		return tiles;
 	}
 }

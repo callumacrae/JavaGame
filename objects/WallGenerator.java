@@ -19,7 +19,9 @@ public class WallGenerator {
 
 	private static final Shape shape = new BoxShape(0.5f, 0.5f);
 
-	public static void generateWall(World world, float x) {
+	public static Tile[] generateWall(World world, float x) {
+		Tile[] tiles = new Tile[18];
+
 		for (int i = 0; i < 18; i++) {
 			Tile tile = new Tile(world, shape);
 			tile.setKillBullets(true);
@@ -32,6 +34,10 @@ public class WallGenerator {
 			} else {
 				tile.setImage(wallMiddle);
 			}
+
+			tiles[i] = tile;
 		}
+
+		return tiles;
 	}
 }

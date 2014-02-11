@@ -24,8 +24,22 @@ public class PhysicsGame {
 				new Vec2(5, 8)
 		};
 
-		Level level1 = new Level(platforms, enemies, player);
+		final Level level1 = new Level(platforms, enemies, player);
 		level1.drawTo(world);
+		player.setPosition(new Vec2(0, -6));
+
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				try {
+//					Thread.sleep(2000);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//
+//				level1.destroy();
+//			}
+//		}).start();
 
 		// Display points
 		final JLabel pointsLabel = new JLabel("Points: 0");
