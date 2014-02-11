@@ -11,13 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PhysicsGame {
-	private static JLabel completeLabel;
-
 	public static void main(String[] args) {
 		World world = new World();
 
 		// Create the view
-		final UserView view = new UserView(world, 600, 700);
+		UserView view = new UserView(world, 600, 700);
 		view.setView(new Vec2(0, 0), 32);
 		view.setLayout(new BorderLayout());
 
@@ -34,7 +32,7 @@ public class PhysicsGame {
 		view.add(pointsLabel, BorderLayout.NORTH);
 
 		// Create "level complete" label
-		completeLabel = new JLabel("Level Complete!");
+		JLabel completeLabel = new JLabel("Level Complete!");
 		completeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		completeLabel.setVisible(false);
 
@@ -53,7 +51,7 @@ public class PhysicsGame {
 
 
 		// Set up the boring stuff.
-		final JFrame frame = new JFrame("Game");
+		JFrame frame = new JFrame("Game");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setLocationByPlatform(true);
 		frame.add(view);
