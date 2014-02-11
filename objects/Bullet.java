@@ -13,8 +13,9 @@ public class Bullet extends DynamicBody {
 	 * Creates the bullet.
 	 *
 	 * @param world The world to add the bullet to.
+	 * @param cheat If true, bullet will bounce off walls.
 	 */
-	public Bullet(World world) {
+	public Bullet(World world, final boolean cheat) {
 		super(world);
 
 		this.setGravityScale(10);
@@ -28,7 +29,7 @@ public class Bullet extends DynamicBody {
 					Bullet.this.destroy();
 				}
 
-				if (otherBody instanceof Tile && ((Tile) otherBody).getKillBullets()) {
+				if (otherBody instanceof Tile && ((Tile) otherBody).getKillBullets() && !cheat) {
 					Bullet.this.destroy();
 				}
 			}

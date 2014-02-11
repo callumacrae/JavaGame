@@ -16,6 +16,7 @@ public class GameKeyDispatcher extends KeyAdapter {
 	private World world;
 
 	private int horizontal;
+	private boolean cheat = false;
 
 	/**
 	 * Set up the event handler.
@@ -51,7 +52,7 @@ public class GameKeyDispatcher extends KeyAdapter {
 				position.x += 0.3f * (playerVelocity.x >= 0 ? 1 : -1) + xVelocity / 20;
 				position.y += 0.5f;
 
-				final DynamicBody bullet = new Bullet(world);
+				final DynamicBody bullet = new Bullet(world, cheat);
 				bullet.setPosition(position);
 				bullet.setLinearVelocity(new Vec2(xVelocity, 0));
 				break;
@@ -77,6 +78,11 @@ public class GameKeyDispatcher extends KeyAdapter {
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_D:
 				this.horizontal = 50;
+				break;
+
+			// Cheat
+			case KeyEvent.VK_T:
+				cheat = !cheat;
 				break;
 		}
 	}
