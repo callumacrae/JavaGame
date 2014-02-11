@@ -15,6 +15,7 @@ public class Level {
 	private float[] platformLengths;
 	private Vec2[] enemiesStart;
 	private Player player;
+	private Vec2 startPosition;
 
 	private int remainingEnemies;
 	private ArrayList<LevelEventListener> listeners = new ArrayList<LevelEventListener>();
@@ -26,11 +27,13 @@ public class Level {
 	 * @param platformLengths Array of platform length floats.
 	 * @param enemiesStart    Array of Vec2 objects for enemy start positions.
 	 * @param player          The player.
+	 * @param startPosition   The start position of the player.
 	 */
-	public Level(float[] platformLengths, Vec2[] enemiesStart, Player player) {
+	public Level(float[] platformLengths, Vec2[] enemiesStart, Player player, Vec2 startPosition) {
 		this.platformLengths = platformLengths;
 		this.enemiesStart = enemiesStart;
 		this.player = player;
+		this.startPosition = startPosition;
 
 		remainingEnemies = enemiesStart.length;
 	}
@@ -72,7 +75,9 @@ public class Level {
 						remainingEnemies--;
 
 						if (remainingEnemies == 0) {
-							System.out.println("Level complete");
+							for (LevelEventListener listener : listeners) {
+								listener.levelComplete();
+							}
 						}
 					}
 				}
@@ -80,6 +85,10 @@ public class Level {
 
 			bodyArray.add(enemy);
 		}
+
+		// Position Player
+		player.setLinearVelocity(new Vec2(0, 0));
+		player.setPosition(startPosition);
 	}
 
 	/**

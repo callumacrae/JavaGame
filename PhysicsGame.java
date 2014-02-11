@@ -1,7 +1,6 @@
 import city.cs.engine.UserView;
 import city.cs.engine.World;
-import levels.Level;
-import levels.LevelEventListener;
+import levels.Levels;
 import objects.Player;
 import org.jbox2d.common.Vec2;
 import points.PointsChangeEvent;
@@ -9,85 +8,51 @@ import points.PointsChangeListener;
 import points.PointsHandler;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class PhysicsGame {
+	private static JLabel completeLabel;
+
 	public static void main(String[] args) {
 		World world = new World();
 
-		// Create character
-		Player player = new Player(world);
+		// Create the view
+		final UserView view = new UserView(world, 600, 700);
+		view.setView(new Vec2(0, 0), 32);
+		view.setLayout(new BorderLayout());
 
-		{
-			// levels.Level one
-			float[] platforms = {6, 4.5f, 3, 1.5f, -4.5f, -3, -1.5f};
-			Vec2[] enemies = {
-					new Vec2(5, -7),
-					new Vec2(5, -4.5f),
-					new Vec2(5, -2f),
-					new Vec2(5, 0.5f),
-					new Vec2(-5, 3),
-					new Vec2(-5, 5.5f),
-					new Vec2(-5, 8)
-			};
-
-			final Level level = new Level(platforms, enemies, player);
-			level.drawTo(world);
-			player.setPosition(new Vec2(-4, -6));
-
-			level.addEventListener(new LevelEventListener() {
-				@Override
-				public void levelComplete() {
-					level.destroy();
-				}
-			});
-		}
-
-		{
-			// levels.Level two
-			float[] platforms = {6, 1.5f, -3, 4, 1.5f, -1.5f, 2.5f};
-			Vec2[] enemies = {
-					new Vec2(5, -4.5f),
-					new Vec2(2.5f, 0.5f),
-					new Vec2(-4, 5.5f),
-					new Vec2(5, 8)
-			};
-
-			final Level level = new Level(platforms, enemies, player);
-//			level.drawTo(world);
-//			player.setPosition(new Vec2(0, -6));
-		}
-
-
-
-//		new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				try {
-//					Thread.sleep(2000);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//
-//				level1.destroy();
-//			}
-//		}).start();
 
 		// Display points
 		final JLabel pointsLabel = new JLabel("Points: 0");
-		pointsLabel.setLocation(10, 10);
 		PointsHandler.addChangeListener(new PointsChangeListener() {
 			@Override
 			public void changed(PointsChangeEvent pointsChangeEvent) {
 				pointsLabel.setText(String.format("Points: %d", pointsChangeEvent.points));
 			}
 		});
+		pointsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		view.add(pointsLabel, BorderLayout.NORTH);
+
+		// Create "level complete" label
+		completeLabel = new JLabel("Level Complete!");
+		completeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		completeLabel.setVisible(false);
+
+		Font defaultFont = UIManager.getDefaults().getFont("TabbedPane.font");
+		completeLabel.setFont(new Font(defaultFont.getFontName(), defaultFont.getStyle(), 48));
+
+		view.add(completeLabel, BorderLayout.CENTER);
 
 
-		// Create the view and stuff. Everything below here is boring.
-		UserView view = new UserView(world, 600, 700);
-		view.add(pointsLabel);
-		view.setView(new Vec2(0, 0), 32);
+		// Create character
+		Player player = new Player(world);
 
+		// Start the game
+		Levels levels = new Levels(player);
+		levels.start(0, world, view, completeLabel);
+
+
+		// Set up the boring stuff.
 		final JFrame frame = new JFrame("Game");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setLocationByPlatform(true);
