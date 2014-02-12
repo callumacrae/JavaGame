@@ -1,7 +1,6 @@
 package levels;
 
 import city.cs.engine.UserView;
-import city.cs.engine.World;
 import objects.Player;
 import org.jbox2d.common.Vec2;
 
@@ -120,12 +119,11 @@ public class Levels {
 	/**
 	 * Starts the game. Draws specified level (usually 0) to the specified world.
 	 *
-	 * @param index      The index of the level to start at. You probably want 0.
-	 * @param world      The world to draw the level to.
+	 * @param index The index of the level to start at. You probably want 0.
 	 */
-	public void start(final int index, final World world) {
+	public void start(final int index) {
 		final Level level = levels.get(index);
-		level.drawTo(world);
+		level.drawTo(view.getWorld());
 
 		isActive = true;
 		latestIndex = index;
@@ -159,11 +157,18 @@ public class Levels {
 
 						levelLabel.setVisible(false);
 
-						start(index + 1, world);
+						start(index + 1);
 					}
 				});
 			}
 		});
+	}
+
+	/**
+	 * Starts the game at level 0.
+	 */
+	public void start() {
+		start(0);
 	}
 
 	/**

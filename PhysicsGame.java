@@ -45,7 +45,7 @@ public class PhysicsGame {
 		// Start the game
 		Player player = new Player(world);
 		Levels levels = new Levels(player, view, levelLabel);
-		levels.start(0, world); // @todo: Remove world
+		levels.start();
 		player.addLevelsData(levels);
 
 
