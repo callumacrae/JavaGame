@@ -19,6 +19,13 @@ public class WallGenerator {
 
 	private static final Shape shape = new BoxShape(0.5f, 0.5f);
 
+	/**
+	 * Generates a vertical wall out of tiles.
+	 *
+	 * @param world The world to create the wall on.
+	 * @param x     The x position of the wall.
+	 * @return      An array of Tiles that make the wall.
+	 */
 	public static Tile[] generateWall(World world, float x) {
 		Tile[] tiles = new Tile[18];
 

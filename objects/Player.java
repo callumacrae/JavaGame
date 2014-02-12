@@ -34,7 +34,11 @@ public class Player extends DynamicBody {
 			@Override
 			public void collide(CollisionEvent collisionEvent) {
 				if (collisionEvent.getOtherBody() instanceof Enemy) {
-					levels.getCurrentLevel().restorePlayer();
+					if (levels != null) {
+						levels.getCurrentLevel().restorePlayer();
+						System.out.println("ERROR: Levels data not specified.");
+					}
+
 					PointsHandler.removePoints(10);
 				}
 			}
@@ -60,6 +64,12 @@ public class Player extends DynamicBody {
 		});
 	}
 
+	/**
+	 * Add levels data: as Levels wants access to Player and Player wants
+	 * access to Levels, this cannot be done in the constructor.
+	 *
+	 * @param levels The Levels object.
+	 */
 	public void addLevelsData(Levels levels) {
 		this.levels = levels;
 	}

@@ -42,13 +42,10 @@ public class PhysicsGame {
 		view.add(completeLabel, BorderLayout.CENTER);
 
 
-		// Create character
-		Player player = new Player(world);
-
 		// Start the game
+		Player player = new Player(world);
 		Levels levels = new Levels(player);
 		levels.start(0, world, view, completeLabel);
-
 		player.addLevelsData(levels);
 
 

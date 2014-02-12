@@ -95,7 +95,7 @@ public class GameKeyDispatcher extends KeyAdapter {
 				this.horizontal = 50;
 				break;
 
-			// Cheat
+			// Toggle cheat mode
 			case KeyEvent.VK_T:
 				cheat = !cheat;
 				break;

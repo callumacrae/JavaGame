@@ -84,6 +84,14 @@ public class Levels {
 		}
 	}
 
+	/**
+	 * Starts the game. Draws specified level (usually 0) to the specified world.
+	 *
+	 * @param index         The index of the level to start at. You probably want 0.
+	 * @param world         The world to draw the level to.
+	 * @param view          The view to draw the level to.
+	 * @param completeLabel The label to display on completion of levels and the game.
+	 */
 	public void start(final int index, final World world, final UserView view, final JLabel completeLabel) {
 		final Level level = levels.get(index);
 		level.drawTo(world);
@@ -136,6 +144,11 @@ public class Levels {
 		return isActive;
 	}
 
+	/**
+	 * Get the level being played right now.
+	 *
+	 * @return The current level.
+	 */
 	public Level getCurrentLevel() {
 		return levels.get(latestIndex);
 	}
