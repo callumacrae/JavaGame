@@ -87,19 +87,24 @@ public class Level {
 		}
 
 		// Position Player
-		player.setLinearVelocity(new Vec2(0, 0));
-		player.setPosition(startPosition);
+		restorePlayer();
 	}
 
 	/**
 	 * Remove the level from the world.
-	 *
-	 * BROKEN. Not sure why.
 	 */
 	public void destroy() {
 		for (StaticBody body : bodyArray) {
 			body.destroy();
 		}
+	}
+
+	/**
+	 * Moves the player back to the start point.
+	 */
+	public void restorePlayer() {
+		player.setLinearVelocity(new Vec2(0, 0));
+		player.setPosition(startPosition);
 	}
 
 	/**

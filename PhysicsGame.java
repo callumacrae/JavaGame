@@ -49,6 +49,8 @@ public class PhysicsGame {
 		Levels levels = new Levels(player);
 		levels.start(0, world, view, completeLabel);
 
+		player.addLevelsData(levels);
+
 
 		// Set up the boring stuff.
 		JFrame frame = new JFrame("Game");
@@ -59,7 +61,7 @@ public class PhysicsGame {
 		frame.pack();
 		frame.setVisible(true);
 
-		frame.addKeyListener(new GameKeyDispatcher(player, world));
+		frame.addKeyListener(new GameKeyDispatcher(player, world, levels));
 
 //		view.setGridResolution(1);
 //		JFrame debugView = new DebugViewer(world, 500, 500);

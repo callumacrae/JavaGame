@@ -2,8 +2,10 @@ import city.cs.engine.DynamicBody;
 import city.cs.engine.StepEvent;
 import city.cs.engine.World;
 import helpers.StepAdapter;
+import levels.Levels;
 import objects.Bullet;
 import org.jbox2d.common.Vec2;
+import points.PointsHandler;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -23,8 +25,9 @@ public class GameKeyDispatcher extends KeyAdapter {
 	 *
 	 * @param playerBody The main character.
 	 * @param world      The world.
+	 * @param levels     Levels object.
 	 */
-	public GameKeyDispatcher(DynamicBody playerBody, World world) {
+	public GameKeyDispatcher(DynamicBody playerBody, World world, final Levels levels) {
 		this.playerBody = playerBody;
 		this.world = world;
 
@@ -32,7 +35,19 @@ public class GameKeyDispatcher extends KeyAdapter {
 		world.addStepListener(new StepAdapter() {
 			@Override
 			public void preStep(StepEvent stepEvent) {
+				if (!levels.getActive()) {
+					return;
+				}
+
 				GameKeyDispatcher.this.playerBody.applyForce(new Vec2(horizontal, 0));
+
+				// If player is off screen, put them back to their startPosition.
+				Vec2 position = GameKeyDispatcher.this.playerBody.getPosition();
+
+			 	if (Math.abs(position.x) > 300 || position.y < -350) {
+					levels.getCurrentLevel().restorePlayer();
+					PointsHandler.removePoints(10);
+				}
 			}
 		});
 	}

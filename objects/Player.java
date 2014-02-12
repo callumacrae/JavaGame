@@ -2,6 +2,7 @@ package objects;
 
 import city.cs.engine.*;
 import helpers.StepAdapter;
+import levels.Levels;
 import org.jbox2d.common.Vec2;
 import points.PointsHandler;
 
@@ -13,6 +14,8 @@ public class Player extends DynamicBody {
 	private static final BodyImage walkingRightImage = new BodyImage("data/SumoHulkBrawler/walking_right.gif");
 	private static final BodyImage walkingLeftImage = new BodyImage("data/SumoHulkBrawler/walking_left.gif");
 	private static final BodyImage idleImage = new BodyImage("data/SumoHulkBrawler/idle.gif");
+
+	private Levels levels;
 
 	/**
 	 * Create a new DynamicBody. Hulk!
@@ -31,6 +34,7 @@ public class Player extends DynamicBody {
 			@Override
 			public void collide(CollisionEvent collisionEvent) {
 				if (collisionEvent.getOtherBody() instanceof Enemy) {
+					levels.getCurrentLevel().restorePlayer();
 					PointsHandler.removePoints(10);
 				}
 			}
@@ -54,5 +58,9 @@ public class Player extends DynamicBody {
 				}
 			}
 		});
+	}
+
+	public void addLevelsData(Levels levels) {
+		this.levels = levels;
 	}
 }

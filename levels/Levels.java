@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 public class Levels {
 	private ArrayList<Level> levels = new ArrayList<Level>();
+	private boolean isActive = false;
+
+	private int latestIndex;
 
 	/**
 	 * Sets up the levels.
@@ -85,10 +88,15 @@ public class Levels {
 		final Level level = levels.get(index);
 		level.drawTo(world);
 
+		isActive = true;
+		latestIndex = index;
+
 		level.addEventListener(new LevelEventListener() {
 			@Override
 			public void levelComplete() {
 				level.destroy();
+
+				isActive = false;
 
 				completeLabel.setVisible(true);
 
@@ -117,5 +125,18 @@ public class Levels {
 				});
 			}
 		});
+	}
+
+	/**
+	 * Is there a level being played right now?
+	 *
+	 * @return True if level being played.
+	 */
+	public boolean getActive() {
+		return isActive;
+	}
+
+	public Level getCurrentLevel() {
+		return levels.get(latestIndex);
 	}
 }
