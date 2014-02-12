@@ -6,6 +6,7 @@ import objects.Player;
 import org.jbox2d.common.Vec2;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -13,22 +14,54 @@ import java.util.ArrayList;
 public class Levels {
 	private ArrayList<Level> levels = new ArrayList<Level>();
 	private boolean isActive = false;
+	private UserView view;
+	private JLabel levelLabel;
 
 	private int latestIndex;
 
 	/**
 	 * Sets up the levels.
 	 *
-	 * @param player The Player object.
+	 * @param player     The Player object.
+	 * @param view       The view to draw the level to.
+	 * @param levelLabel The label to display on completion of levels and the game.
 	 */
-	public Levels(Player player) {
+	public Levels(Player player, final UserView view, final JLabel levelLabel) {
+		this.view = view;
+		this.levelLabel = levelLabel;
+
 		{
 			float[] platforms = {6, 3};
 			Vec2[] enemies = {
 					new Vec2(5, -4.5f)
 			};
 
-			levels.add(new Level(platforms, enemies, player, new Vec2(-4, -6)));
+			Level level = new Level(platforms, enemies, player, new Vec2(-4, -6));
+			levels.add(level);
+
+			// Display instructions
+			level.addEventListener(new LevelEventListener() {
+				Font oldFont;
+				String oldText;
+
+				@Override
+				public void levelStart() {
+					oldFont = levelLabel.getFont();
+					oldText = levelLabel.getText();
+
+					levelLabel.setFont(UIManager.getDefaults().getFont("TabbedPane.font"));
+					levelLabel.setText("<html><center>" +
+							"Use the arrow keys to move and space to fire.<br>" +
+							"Kill the aliens! Don't touch them.</center></html>");
+					levelLabel.setVisible(true);
+				}
+
+				@Override
+				public void levelComplete() {
+					levelLabel.setFont(oldFont);
+					levelLabel.setText(oldText);
+				}
+			});
 		}
 
 		{
@@ -87,29 +120,27 @@ public class Levels {
 	/**
 	 * Starts the game. Draws specified level (usually 0) to the specified world.
 	 *
-	 * @param index         The index of the level to start at. You probably want 0.
-	 * @param world         The world to draw the level to.
-	 * @param view          The view to draw the level to.
-	 * @param completeLabel The label to display on completion of levels and the game.
+	 * @param index      The index of the level to start at. You probably want 0.
+	 * @param world      The world to draw the level to.
 	 */
-	public void start(final int index, final World world, final UserView view, final JLabel completeLabel) {
+	public void start(final int index, final World world) {
 		final Level level = levels.get(index);
 		level.drawTo(world);
 
 		isActive = true;
 		latestIndex = index;
 
-		level.addEventListener(new LevelEventListener() {
+		level.addEventListener(new LevelEventAdapter() {
 			@Override
 			public void levelComplete() {
 				level.destroy();
 
 				isActive = false;
 
-				completeLabel.setVisible(true);
+				levelLabel.setVisible(true);
 
 				if (index == levels.size() - 1) {
-					completeLabel.setText("You won the game!");
+					levelLabel.setText("You won the game!");
 					return;
 				}
 
@@ -126,9 +157,9 @@ public class Levels {
 
 						called = true;
 
-						completeLabel.setVisible(false);
+						levelLabel.setVisible(false);
 
-						start(index + 1, world, view, completeLabel);
+						start(index + 1, world);
 					}
 				});
 			}

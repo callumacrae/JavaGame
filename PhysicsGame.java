@@ -31,21 +31,21 @@ public class PhysicsGame {
 		pointsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		view.add(pointsLabel, BorderLayout.NORTH);
 
-		// Create "level complete" label
-		JLabel completeLabel = new JLabel("Level Complete!");
-		completeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		completeLabel.setVisible(false);
+		// Label for "Level Complete", "Game Complete" and start instructions.
+		JLabel levelLabel = new JLabel("Level Complete!");
+		levelLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		levelLabel.setVisible(false);
 
 		Font defaultFont = UIManager.getDefaults().getFont("TabbedPane.font");
-		completeLabel.setFont(new Font(defaultFont.getFontName(), defaultFont.getStyle(), 48));
+		levelLabel.setFont(new Font(defaultFont.getFontName(), defaultFont.getStyle(), 48));
 
-		view.add(completeLabel, BorderLayout.CENTER);
+		view.add(levelLabel, BorderLayout.CENTER);
 
 
 		// Start the game
 		Player player = new Player(world);
-		Levels levels = new Levels(player);
-		levels.start(0, world, view, completeLabel);
+		Levels levels = new Levels(player, view, levelLabel);
+		levels.start(0, world); // @todo: Remove world
 		player.addLevelsData(levels);
 
 

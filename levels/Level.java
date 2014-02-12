@@ -88,6 +88,10 @@ public class Level {
 
 		// Position Player
 		restorePlayer();
+
+		for (LevelEventListener listener : listeners) {
+			listener.levelStart();
+		}
 	}
 
 	/**
