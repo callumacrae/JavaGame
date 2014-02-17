@@ -13,9 +13,10 @@ import java.awt.*;
 public class PhysicsGame {
 	public static void main(String[] args) {
 		World world = new World();
+		Player player = new Player(world);
 
 		// Create the view
-		UserView view = new UserView(world, 600, 700);
+		UserView view = new GameView(world, 600, 700, player);
 		view.setView(new Vec2(0, 0), 32);
 		view.setLayout(new BorderLayout());
 
@@ -43,7 +44,6 @@ public class PhysicsGame {
 
 
 		// Start the game
-		Player player = new Player(world);
 		Levels levels = new Levels(player, view, levelLabel);
 		levels.start();
 		player.addLevelsData(levels);
