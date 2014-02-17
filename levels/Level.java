@@ -67,6 +67,9 @@ public class Level {
 				@Override
 				public void collide(CollisionEvent collisionEvent) {
 					if (collisionEvent.getOtherBody() instanceof Bullet) {
+						// @todo: Remove milestone 1 code
+						System.out.println("Enemy hit by bullet; destroying enemy and bullet.");
+
 						enemy.destroy();
 						collisionEvent.getOtherBody().destroy();
 

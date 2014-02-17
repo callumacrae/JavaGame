@@ -40,6 +40,9 @@ public class Player extends DynamicBody {
 						System.out.println("ERROR: Levels data not specified.");
 					}
 
+					// @todo: Remove milestone 1 code
+					System.out.println("Player ran into Enemy; restore player to level start.");
+
 					PointsHandler.removePoints(10);
 				}
 			}
