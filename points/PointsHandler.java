@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Handles points! Static because only one of these is ever needed.
  */
 public class PointsHandler {
-	private static int totalPoints = 0;
+	private static float totalPoints = 0;
 	private static ArrayList<PointsChangeListener> listeners = new ArrayList<PointsChangeListener>();
 
 	/**
@@ -14,7 +14,7 @@ public class PointsHandler {
 	 *
 	 * @param points Number of points to add.
 	 */
-	public static void addPoints(int points) {
+	public static void addPoints(float points) {
 		setPoints(totalPoints + points);
 
 		if (points < 0) {
@@ -27,7 +27,7 @@ public class PointsHandler {
 	 *
 	 * @param points Number of points to remove.
 	 */
-	public static void removePoints(int points) {
+	public static void removePoints(float points) {
 		setPoints(totalPoints - points);
 
 		if (points < 0) {
@@ -40,25 +40,20 @@ public class PointsHandler {
 	 *
 	 * @param points New number of points.
 	 */
-	public static void setPoints(int points) {
-		PointsChangeEvent pointsChangeEvent = new PointsChangeEvent();
+	public static void setPoints(float points) {
+		float oldPoints = totalPoints;
+		totalPoints = points;
 
-		pointsChangeEvent.points = points;
-		pointsChangeEvent.oldPoints = totalPoints;
-		pointsChangeEvent.difference = points - totalPoints;
+		PointsChangeEvent pointsChangeEvent = new PointsChangeEvent(points, oldPoints);
 
 		// We don't fire the event if the number of points hasn't changed
 		if (pointsChangeEvent.difference == 0) {
 			return;
 		}
 
-		pointsChangeEvent.good = pointsChangeEvent.difference > 0;
-
 		for (PointsChangeListener listener : listeners) {
 			listener.changed(pointsChangeEvent);
 		}
-
-		totalPoints = points;
 	}
 
 	/**
@@ -66,8 +61,30 @@ public class PointsHandler {
 	 *
 	 * @return The number of points.
 	 */
-	public static int getPoints() {
+	public static float getPoints() {
 		return totalPoints;
+	}
+
+	/**
+	 * Convert the current number of points into a string, with one or zero
+	 * decimal places.
+	 *
+	 * @return String representing the number of points.
+	 */
+	public static String pointsToString() {
+		return pointsToString(getPoints());
+	}
+
+	/**
+	 * Convert a number of points into a string, with one or zero decimal
+	 * places.
+	 *
+	 * @param points The number of points.
+	 * @return String representing the number of points.
+	 */
+	public static String pointsToString(float points) {
+		String format = Math.round(points) == points ? ",.0" : ",.1";
+		return String.format("Points: %" + format + "f", points);
 	}
 
 	/**

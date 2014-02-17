@@ -25,7 +25,7 @@ public class PhysicsGame {
 		PointsHandler.addChangeListener(new PointsChangeListener() {
 			@Override
 			public void changed(PointsChangeEvent pointsChangeEvent) {
-				pointsLabel.setText(String.format("Points: %d", pointsChangeEvent.points));
+				pointsLabel.setText(PointsHandler.pointsToString());
 			}
 		});
 		pointsLabel.setHorizontalAlignment(SwingConstants.CENTER);

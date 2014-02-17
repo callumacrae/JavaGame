@@ -70,6 +70,10 @@ public class GameKeyDispatcher extends KeyAdapter {
 				final DynamicBody bullet = new Bullet(world, cheat);
 				bullet.setPosition(position);
 				bullet.setLinearVelocity(new Vec2(xVelocity, 0));
+
+				if (!cheat) {
+					PointsHandler.removePoints(0.5f);
+				}
 				break;
 
 			// Make the main character jump
