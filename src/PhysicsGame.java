@@ -13,6 +13,7 @@ import java.awt.*;
 public class PhysicsGame {
 	public static void main(String[] args) {
 		World world = new World();
+		world.setGravity(100);
 		Player player = new Player(world);
 
 		// Create the view

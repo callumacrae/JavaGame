@@ -18,8 +18,6 @@ public class Bullet extends DynamicBody {
 	public Bullet(World world, final boolean cheat) {
 		super(world);
 
-		this.setGravityScale(10);
-
 		this.addCollisionListener(new CollisionListener() {
 			@Override
 			public void collide(CollisionEvent collisionEvent) {

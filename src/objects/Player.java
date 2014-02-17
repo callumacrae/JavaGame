@@ -26,7 +26,6 @@ public class Player extends DynamicBody {
 		super(world, shape);
 
 		this.setImage(idleImage);
-		this.setGravityScale(10);
 		this.setFixedRotation(true);
 
 		// Deduct points when the Player hits a bad guy
