@@ -10,7 +10,8 @@ import points.PointsHandler;
  * Create a new DynamicBody for our character.
  */
 public class Player extends DynamicBody {
-	private static final Shape shape = new BoxShape(0.5f, 0.5f);
+	private static final Shape shape = new BoxShape(0.5f, 0.5f, new Vec2(-0.1f, 0));
+	private static final Shape fingerShape = new BoxShape(0.2f, 0.2f, new Vec2(0.5f, 0.1f));
 	private static final BodyImage walkingRightImage = new BodyImage("data/SumoHulkBrawler/walking_right.gif");
 	private static final BodyImage walkingLeftImage = new BodyImage("data/SumoHulkBrawler/walking_left.gif");
 	private static final BodyImage idleImage = new BodyImage("data/SumoHulkBrawler/idle.gif");
@@ -23,7 +24,9 @@ public class Player extends DynamicBody {
 	 * @param world The world that the Player should be added to.
 	 */
 	public Player(World world) {
-		super(world, shape);
+		super(world);
+		new SolidFixture(this, shape);
+		new SolidFixture(this, fingerShape);
 
 		this.setImage(idleImage);
 		this.setFixedRotation(true);

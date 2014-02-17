@@ -1,6 +1,7 @@
 package levels;
 
 import city.cs.engine.UserView;
+import objects.Gate;
 import objects.Player;
 import org.jbox2d.common.Vec2;
 
@@ -112,7 +113,29 @@ public class Levels {
 					new Vec2(5, -7)
 			};
 
-			levels.add(new Level(platforms, enemies, player, new Vec2(-5, 8.5f)));
+			Level level = new Level(platforms, enemies, player, new Vec2(-5, 8.5f));
+			levels.add(level);
+
+			final ArrayList<Gate> gates = new ArrayList<Gate>();
+
+			level.addEventListener(new LevelEventListener() {
+				@Override
+				public void levelStart() {
+					for (float y = -7f; y <= 8; y += 2.5f) {
+						Gate gate = new Gate(view.getWorld());
+						gate.setPosition(new Vec2(0, y));
+
+						gates.add(gate);
+					}
+				}
+
+				@Override
+				public void levelComplete() {
+					for (Gate gate : gates) {
+						gate.destroy();
+					}
+				}
+			});
 		}
 	}
 

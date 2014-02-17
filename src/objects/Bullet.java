@@ -39,7 +39,7 @@ public class Bullet extends DynamicBody {
 			}
 		});
 
-		SolidFixture fixture = new SolidFixture(this, bullet);
+		SolidFixture fixture = new SolidFixture(this, bullet, 20);
 		fixture.setRestitution(1); // Bouncy bullets!
 		fixture.setFriction(0);
 	}
