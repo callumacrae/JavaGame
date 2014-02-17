@@ -68,9 +68,14 @@ public class Level {
 				public void collide(CollisionEvent collisionEvent) {
 					if (collisionEvent.getOtherBody() instanceof Bullet) {
 						// @todo: Remove milestone 1 code
-						System.out.println("Enemy hit by bullet; destroying enemy and bullet.");
+						System.out.println("Enemy hit by bullet; hurting enemy and destroying bullet.");
 
-						enemy.destroy();
+						if (enemy.getLives() == 1) {
+							enemy.destroy();
+						} else {
+							enemy.setLives(enemy.getLives() - 1);
+						}
+
 						collisionEvent.getOtherBody().destroy();
 
 						PointsHandler.addPoints(5);

@@ -39,6 +39,9 @@ public class Player extends DynamicBody {
 						System.out.println("ERROR: Levels data not specified.");
 					}
 
+					Enemy enemy = (Enemy) collisionEvent.getOtherBody();
+					enemy.setLives(enemy.getLives() + 1);
+
 					// @todo: Remove milestone 1 code
 					System.out.println("Player ran into Enemy; restore player to level start.");
 
