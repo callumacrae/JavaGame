@@ -36,6 +36,7 @@ public class Player extends DynamicBody {
 				if (collisionEvent.getOtherBody() instanceof Enemy) {
 					if (levels != null) {
 						levels.getCurrentLevel().restorePlayer();
+					} else {
 						System.out.println("ERROR: Levels data not specified.");
 					}
 
