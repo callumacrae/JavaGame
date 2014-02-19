@@ -72,15 +72,14 @@ public class Level {
 
 						if (enemy.getLives() == 1) {
 							enemy.destroy();
+							remainingEnemies--;
+
+							PointsHandler.addPoints(5);
 						} else {
 							enemy.setLives(enemy.getLives() - 1);
 						}
 
 						collisionEvent.getOtherBody().destroy();
-
-						PointsHandler.addPoints(5);
-
-						remainingEnemies--;
 
 						if (remainingEnemies == 0) {
 							for (LevelEventListener listener : listeners) {
