@@ -1,8 +1,8 @@
 package levels;
 
+import city.cs.engine.Body;
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import city.cs.engine.StaticBody;
 import city.cs.engine.World;
 import objects.*;
 import org.jbox2d.common.Vec2;
@@ -20,7 +20,7 @@ public class Level {
 	private int remainingEnemies;
 	private ArrayList<LevelEventListener> listeners = new ArrayList<LevelEventListener>();
 
-	private ArrayList<StaticBody> bodyArray = new ArrayList<StaticBody>();
+	private ArrayList<Body> bodyArray = new ArrayList<Body>();
 
 	/**
 	 * Create level with initial level data.
@@ -105,7 +105,7 @@ public class Level {
 	 * Remove the level from the world.
 	 */
 	public void destroy() {
-		for (StaticBody body : bodyArray) {
+		for (Body body : bodyArray) {
 			body.destroy();
 		}
 	}

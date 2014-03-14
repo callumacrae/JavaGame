@@ -5,8 +5,11 @@ import helpers.StepAdapter;
 
 /**
  * Create a new DynamicBody for an enemy.
+ *
+ * Dynamic so that if it gains extra lives, it will move the first time it is
+ * shot.
  */
-public class Enemy extends StaticBody {
+public class Enemy extends DynamicBody {
 	private static final Shape shape = new BoxShape(0.5f, 0.5f);
 	private static final BodyImage imageLeft = new BodyImage("data/platformtiles/alien_left.png");
 	private static final BodyImage imageRight = new BodyImage("data/platformtiles/alien_right.png");
