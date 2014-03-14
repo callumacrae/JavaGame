@@ -52,12 +52,22 @@ public class PhysicsGame {
 
 		// Set up the boring stuff.
 		JFrame frame = new JFrame("Game");
+		frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setLocationByPlatform(true);
 		frame.add(view);
 		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension windowSize = frame.getSize();
+		Point frameLocation = new Point(dim.width / 2 - windowSize.width / 2,
+				dim.height / 2 - windowSize.height / 2);
+		frame.setLocation(frameLocation);
+
+		Draggable.makeDraggable(frame, view, frameLocation);
+
 
 		frame.addKeyListener(new GameKeyDispatcher(player, world, levels));
 
