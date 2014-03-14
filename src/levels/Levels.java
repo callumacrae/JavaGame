@@ -1,12 +1,10 @@
 package levels;
 
 import city.cs.engine.UserView;
-import objects.Gate;
+import levels.levels.*;
 import objects.Player;
-import org.jbox2d.common.Vec2;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -30,113 +28,11 @@ public class Levels {
 		this.view = view;
 		this.levelLabel = levelLabel;
 
-		{
-			float[] platforms = {6, 3};
-			Vec2[] enemies = {
-					new Vec2(5, -4.5f)
-			};
-
-			Level level = new Level(platforms, enemies, player, new Vec2(-4, -6));
-			levels.add(level);
-
-			// Display instructions
-			level.addEventListener(new LevelEventListener() {
-				Font oldFont;
-				String oldText;
-
-				@Override
-				public void levelStart() {
-					oldFont = levelLabel.getFont();
-					oldText = levelLabel.getText();
-
-					levelLabel.setFont(UIManager.getDefaults().getFont("TabbedPane.font"));
-					levelLabel.setText("<html><center>" +
-							"Use the arrow keys to move and space to fire.<br>" +
-							"Kill the aliens! Don't touch them.</center></html>");
-					levelLabel.setVisible(true);
-				}
-
-				@Override
-				public void levelComplete() {
-					levelLabel.setFont(oldFont);
-					levelLabel.setText(oldText);
-				}
-			});
-		}
-
-		{
-			float[] platforms = {6, 4.5f, 3, 1.5f, -4.5f, -3, -1.5f};
-			Vec2[] enemies = {
-					new Vec2(5, -7),
-					new Vec2(5, -4.5f),
-					new Vec2(5, -2f),
-					new Vec2(5, 0.5f),
-					new Vec2(-5, 3),
-					new Vec2(-5, 5.5f),
-					new Vec2(-5, 8)
-			};
-
-			levels.add(new Level(platforms, enemies, player, new Vec2(-4, -6)));
-		}
-
-		{
-			float[] platforms = {6, 1.5f, -3, 4, 1.5f, -1.5f, 2.5f};
-			Vec2[] enemies = {
-					new Vec2(5, -4.5f),
-					new Vec2(2.5f, 0.5f),
-					new Vec2(-4, 5.5f),
-					new Vec2(5, 8)
-			};
-
-			levels.add(new Level(platforms, enemies, player, new Vec2(0, -6)));
-		}
-
-		{
-			float[] platforms = {-4, -3, -2, 1, 0.5f, -3.5f, 0.5f};
-			Vec2[] enemies = {
-					new Vec2(5.2f, 8),
-					new Vec2(-5, -7)
-			};
-
-			levels.add(new Level(platforms, enemies, player, new Vec2(6, 0)));
-		}
-
-		{
-			float[] platforms = {6, 5, -5, 5, -5, 5, -5};
-			Vec2[] enemies = {
-					new Vec2(3.5f, 8),
-					new Vec2(-3.5f, 5.5f),
-					new Vec2(3.5f, 3),
-					new Vec2(-3.5f, 0.5f),
-					new Vec2(3.5f, -2),
-					new Vec2(-3.5f, -4.5f),
-					new Vec2(5, -7)
-			};
-
-			Level level = new Level(platforms, enemies, player, new Vec2(-5, 8.5f));
-			levels.add(level);
-
-			final ArrayList<Gate> gates = new ArrayList<Gate>();
-
-			level.addEventListener(new LevelEventListener() {
-				@Override
-				public void levelStart() {
-					for (float y = -7f; y <= 8; y += 2.5f) {
-						Gate gate = new Gate(view.getWorld());
-						gate.setPosition(new Vec2(0, y));
-
-						gates.add(gate);
-					}
-				}
-
-				@Override
-				public void levelComplete() {
-					for (Gate gate : gates) {
-						gate.destroy();
-					}
-				}
-			});
-		}
+		levels.add(new Level1(player, levelLabel));
+		levels.add(new Level2(player));
+		levels.add(new Level3(player));
+		levels.add(new Level4(player));
+		levels.add(new Level5(player));
 	}
 
 	/**
