@@ -20,11 +20,8 @@ public class Draggable {
 				super.mouseDragged(e);
 
 				if (last.x > 0 && last.y > 0) {
-					int offsetX = e.getXOnScreen() - last.x;
-					int offsetY = e.getYOnScreen() - last.y;
-
-					frameLocation.x += offsetX;
-					frameLocation.y += offsetY;
+					frameLocation.x += e.getXOnScreen() - last.x;
+					frameLocation.y += e.getYOnScreen() - last.y;
 					frame.setLocation(frameLocation);
 				}
 

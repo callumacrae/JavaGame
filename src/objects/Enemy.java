@@ -34,6 +34,7 @@ public class Enemy extends DynamicBody {
 			public void preStep(StepEvent stepEvent) {
 				super.preStep(stepEvent);
 
+				// Not as un-DRY as it looks; can't be done using ternary
 				if (lives == 1) {
 					if (player.getPosition().x < Enemy.this.getPosition().x) {
 						if (Enemy.this.getImage() != imageLeft) {
