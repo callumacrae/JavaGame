@@ -84,7 +84,7 @@ public class PointsHandler {
 	 */
 	public static String pointsToString(float points) {
 		String format = Math.round(points) == points ? ",.0" : ",.1";
-		return String.format("Points: %" + format + "f", points);
+		return String.format("%" + format + "f", points);
 	}
 
 	/**
