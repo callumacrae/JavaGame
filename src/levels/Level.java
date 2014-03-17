@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Level {
-	private float[] platformLengths;
-	private Vec2[] enemiesStart;
-	private Player player;
-	private Vec2 startPosition;
+	private final float[] platformLengths;
+	private final Vec2[] enemiesStart;
+	private final Player player;
+	private final Vec2 startPosition;
 
 	private int remainingEnemies;
-	private ArrayList<LevelEventListener> listeners = new ArrayList<LevelEventListener>();
+	private final ArrayList<LevelEventListener> listeners = new ArrayList<>();
 
-	private ArrayList<Body> bodyArray = new ArrayList<Body>();
+	private final ArrayList<Body> bodyArray = new ArrayList<>();
 
 	/**
 	 * Create level with initial level data.
@@ -67,9 +67,6 @@ public class Level {
 				@Override
 				public void collide(CollisionEvent collisionEvent) {
 					if (collisionEvent.getOtherBody() instanceof Bullet) {
-						// @todo: Remove milestone 1 code
-						System.out.println("Enemy hit by bullet; hurting enemy and destroying bullet.");
-
 						if (enemy.getLives() == 1) {
 							enemy.destroy();
 							remainingEnemies--;

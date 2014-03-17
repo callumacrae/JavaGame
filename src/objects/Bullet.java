@@ -25,16 +25,10 @@ public class Bullet extends DynamicBody {
 
 				if (otherBody instanceof Player) {
 					Bullet.this.destroy();
-
-					// @todo: Remove milestone 1 code
-					System.out.println("Player hit by bullet; destroying bullet.");
 				}
 
 				if (otherBody instanceof Tile && ((Tile) otherBody).getKillBullets() && !cheat) {
 					Bullet.this.destroy();
-
-					// @todo: Remove milestone 1 code
-					System.out.println("Bullet hit wall; removing bullet.");
 				}
 			}
 		});

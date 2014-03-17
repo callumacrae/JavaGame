@@ -8,10 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GameView extends UserView {
-	private Player player;
+	private final Player player;
 
-	private Image backgroundImage = Toolkit.getDefaultToolkit().getImage("data/background.jpg");
-	private Image closeButton = Toolkit.getDefaultToolkit().getImage("data/close.png");
+	private static final Image backgroundImage = Toolkit.getDefaultToolkit().getImage("data/background.jpg");
+	private static final Image closeButton = Toolkit.getDefaultToolkit().getImage("data/close.png");
 
 	public GameView(World world, int i, int i2, Player player) {
 		super(world, i, i2);

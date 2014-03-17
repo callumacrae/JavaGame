@@ -11,10 +11,10 @@ import helpers.StepAdapter;
  */
 public class Enemy extends DynamicBody {
 	private static final Shape shape = new BoxShape(0.5f, 0.5f);
-	private static final BodyImage imageLeft = new BodyImage("data/platformtiles/alien_left.png");
-	private static final BodyImage imageRight = new BodyImage("data/platformtiles/alien_right.png");
-	private static final BodyImage imageLeftBig = new BodyImage("data/platformtiles/alien_left.png", 1.5f);
-	private static final BodyImage imageRightBig = new BodyImage("data/platformtiles/alien_right.png", 1.5f);
+	private static final BodyImage imageLeft = new BodyImage("data/platform_tiles/alien_left.png");
+	private static final BodyImage imageRight = new BodyImage("data/platform_tiles/alien_right.png");
+	private static final BodyImage imageLeftBig = new BodyImage("data/platform_tiles/alien_left.png", 1.5f);
+	private static final BodyImage imageRightBig = new BodyImage("data/platform_tiles/alien_right.png", 1.5f);
 
 	private int lives = 1;
 

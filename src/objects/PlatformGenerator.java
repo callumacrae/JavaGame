@@ -12,9 +12,9 @@ import org.jbox2d.common.Vec2;
 public class PlatformGenerator {
 	private PlatformGenerator() {}
 
-	private static final BodyImage platformLeft = new BodyImage("data/platformtiles/platform_left.png");
-	private static final BodyImage platformCentre = new BodyImage("data/platformtiles/platform_centre.png");
-	private static final BodyImage platformRight = new BodyImage("data/platformtiles/platform_right.png");
+	private static final BodyImage platformLeft = new BodyImage("data/platform_tiles/platform_left.png");
+	private static final BodyImage platformCentre = new BodyImage("data/platform_tiles/platform_centre.png");
+	private static final BodyImage platformRight = new BodyImage("data/platform_tiles/platform_right.png");
 
 	private static final Shape shape = new BoxShape(0.5f, 0.5f);
 

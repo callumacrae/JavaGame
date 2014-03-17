@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class PointsHandler {
 	private static float totalPoints = 0;
-	private static ArrayList<PointsChangeListener> listeners = new ArrayList<PointsChangeListener>();
+	private static final ArrayList<PointsChangeListener> listeners = new ArrayList<>();
 
 	/**
 	 * Add a number of points.

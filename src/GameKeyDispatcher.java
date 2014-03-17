@@ -14,8 +14,8 @@ import java.awt.event.KeyEvent;
  * Handle all key events in the game.
  */
 public class GameKeyDispatcher extends KeyAdapter {
-	private DynamicBody playerBody;
-	private World world;
+	private final DynamicBody playerBody;
+	private final World world;
 
 	private int horizontal;
 	private boolean cheat = false;
@@ -35,7 +35,7 @@ public class GameKeyDispatcher extends KeyAdapter {
 		world.addStepListener(new StepAdapter() {
 			@Override
 			public void preStep(StepEvent stepEvent) {
-				if (!levels.getActive()) {
+				if (levels.getInactive()) {
 					return;
 				}
 

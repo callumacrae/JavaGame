@@ -45,9 +45,6 @@ public class Player extends DynamicBody {
 					Enemy enemy = (Enemy) collisionEvent.getOtherBody();
 					enemy.setLives(enemy.getLives() + 1);
 
-					// @todo: Remove milestone 1 code
-					System.out.println("Player ran into Enemy; restore player to level start.");
-
 					PointsHandler.removePoints(10);
 				}
 			}

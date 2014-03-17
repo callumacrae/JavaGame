@@ -10,10 +10,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Levels {
-	private ArrayList<Level> levels = new ArrayList<Level>();
+	private final ArrayList<Level> levels = new ArrayList<>();
 	private boolean isActive = false;
-	private UserView view;
-	private JLabel levelLabel;
+	private final UserView view;
+	private final JLabel levelLabel;
 
 	private int latestIndex;
 
@@ -93,10 +93,10 @@ public class Levels {
 	/**
 	 * Is there a level being played right now?
 	 *
-	 * @return True if level being played.
+	 * @return True if level not being played.
 	 */
-	public boolean getActive() {
-		return isActive;
+	public boolean getInactive() {
+		return !isActive;
 	}
 
 	/**

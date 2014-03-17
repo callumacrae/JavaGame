@@ -12,10 +12,10 @@ import org.jbox2d.common.Vec2;
 public class WallGenerator {
 	private WallGenerator() {}
 
-	private static final BodyImage wallTop = new BodyImage("data/platformtiles/wall_top.png");
-	private static final BodyImage wallMiddle = new BodyImage("data/platformtiles/wall_middle.png");
-	private static final BodyImage wallBottomLeft = new BodyImage("data/platformtiles/wall_corner_left.png");
-	private static final BodyImage wallBottomRight = new BodyImage("data/platformtiles/wall_corner_right.png");
+	private static final BodyImage wallTop = new BodyImage("data/platform_tiles/wall_top.png");
+	private static final BodyImage wallMiddle = new BodyImage("data/platform_tiles/wall_middle.png");
+	private static final BodyImage wallBottomLeft = new BodyImage("data/platform_tiles/wall_corner_left.png");
+	private static final BodyImage wallBottomRight = new BodyImage("data/platform_tiles/wall_corner_right.png");
 
 	private static final Shape shape = new BoxShape(0.5f, 0.5f);
 

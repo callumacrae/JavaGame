@@ -26,7 +26,7 @@ public class Level5 extends Level {
 	public Level5(final Player player) {
 		super(platforms, enemies, player, new Vec2(-5, 8.5f));
 
-		final ArrayList<Gate> gates = new ArrayList<Gate>();
+		final ArrayList<Gate> gates = new ArrayList<>();
 
 		this.addEventListener(new LevelEventListener() {
 			@Override
