@@ -95,13 +95,4 @@ public class PointsHandler {
 	public static void addChangeListener(PointsChangeListener listener) {
 		listeners.add(listener);
 	}
-
-	/**
-	 * Remove a listener. It needs to be exactly the same object.
-	 *
-	 * @param listener The event listener to remove.
-	 */
-	public static void removeChangeListener(PointsChangeListener listener) {
-		listeners.remove(listener);
-	}
 }
