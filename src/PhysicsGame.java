@@ -81,12 +81,14 @@ public class PhysicsGame {
 		frame.pack();
 		frame.setVisible(true);
 
+		// Position window in middle of screen
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension windowSize = frame.getSize();
 		Point frameLocation = new Point(dim.width / 2 - windowSize.width / 2,
 				dim.height / 2 - windowSize.height / 2);
 		frame.setLocation(frameLocation);
 
+		// Set up Draggable
 		Draggable.makeDraggable(frame, view, frameLocation);
 
 

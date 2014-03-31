@@ -9,6 +9,8 @@ import points.PointsHandler;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * Handle all key events in the game.
@@ -19,6 +21,11 @@ public class GameKeyDispatcher extends KeyAdapter {
 
 	private int horizontal;
 	private boolean cheat = false;
+
+	private static final LinkedList<Integer> konamiKeys = new LinkedList<>(
+			Arrays.asList(38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 10)
+	);
+	private final LinkedList<Integer> lastKeys = new LinkedList<>();
 
 	/**
 	 * Set up the event handler.
@@ -55,6 +62,8 @@ public class GameKeyDispatcher extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		super.keyPressed(e);
+
+		konamiHandler(e.getKeyCode());
 
 		switch (e.getKeyCode()) {
 
@@ -98,11 +107,6 @@ public class GameKeyDispatcher extends KeyAdapter {
 			case KeyEvent.VK_D:
 				this.horizontal = 50;
 				break;
-
-			// Toggle cheat mode
-			case KeyEvent.VK_T:
-				cheat = !cheat;
-				break;
 		}
 	}
 
@@ -119,6 +123,18 @@ public class GameKeyDispatcher extends KeyAdapter {
 			case KeyEvent.VK_D:
 				this.horizontal = 0;
 				break;
+		}
+	}
+
+	private void konamiHandler(int keyCode) {
+		lastKeys.add(keyCode);
+
+		if (lastKeys.size() > konamiKeys.size()) {
+			lastKeys.remove();
+		}
+
+		if (lastKeys.equals(konamiKeys)) {
+			cheat = true;
 		}
 	}
 }
