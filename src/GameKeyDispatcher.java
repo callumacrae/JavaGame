@@ -107,6 +107,11 @@ public class GameKeyDispatcher extends KeyAdapter {
 			case KeyEvent.VK_D:
 				this.horizontal = 50;
 				break;
+
+			// Add points
+			case KeyEvent.VK_P:
+				PointsHandler.addPoints(10);
+				break;
 		}
 	}
 
