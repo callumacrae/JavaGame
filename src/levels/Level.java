@@ -62,7 +62,9 @@ public class Level {
 			enemy.setPosition(enemyPosition);
 
 			enemy.addCollisionListener(collisionEvent -> {
-				if (collisionEvent.getOtherBody() instanceof Bullet) {
+				Body otherBody = collisionEvent.getOtherBody();
+
+				if (otherBody instanceof Bullet || (otherBody instanceof Player && ((Player) otherBody).isNinja())) {
 					if (enemy.getLives() == 1) {
 						enemy.destroy();
 						remainingEnemies--;
@@ -72,7 +74,9 @@ public class Level {
 						enemy.setLives(enemy.getLives() - 1);
 					}
 
-					collisionEvent.getOtherBody().destroy();
+					if (otherBody instanceof Bullet) {
+						otherBody.destroy();
+					}
 
 					if (remainingEnemies == 0) {
 						listeners.forEach(LevelEventListener::levelComplete);

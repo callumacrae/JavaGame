@@ -15,8 +15,11 @@ public class Player extends DynamicBody {
 	private static final BodyImage walkingRightImage = new BodyImage("data/SumoHulkBrawler/walking_right.gif");
 	private static final BodyImage walkingLeftImage = new BodyImage("data/SumoHulkBrawler/walking_left.gif");
 	private static final BodyImage idleImage = new BodyImage("data/SumoHulkBrawler/idle.gif");
+	private static final BodyImage kisiLeft = new BodyImage("data/kisi/left.png");
+	private static final BodyImage kisiRight = new BodyImage("data/kisi/right.png");
 
 	private Levels levels;
+	private boolean ninja = false;
 
 	/**
 	 * Create a new DynamicBody. Hulk!
@@ -34,6 +37,10 @@ public class Player extends DynamicBody {
 		// Deduct points when the Player hits a bad guy
 		this.addCollisionListener(collisionEvent -> {
 			if (collisionEvent.getOtherBody() instanceof Enemy) {
+				if (ninja) {
+					return;
+				}
+
 				if (levels != null) {
 					levels.getCurrentLevel().restorePlayer();
 				} else {
@@ -57,11 +64,11 @@ public class Player extends DynamicBody {
 				BodyImage currentImage = Player.this.getImage();
 
 				if (velocity.x > 0.1 && currentImage != walkingRightImage) {
-					Player.this.setImage(walkingRightImage);
+					Player.this.setImage(ninja ? kisiRight : walkingRightImage);
 				} else if (velocity.x < -0.1 && currentImage != walkingLeftImage) {
-					Player.this.setImage(walkingLeftImage);
+					Player.this.setImage(ninja ? kisiLeft : walkingLeftImage);
 				} else if (Math.abs(velocity.x) < 0.1 && currentImage != idleImage) {
-					Player.this.setImage(idleImage);
+					Player.this.setImage(ninja ? kisiRight : idleImage);
 				}
 			}
 		});
@@ -75,5 +82,21 @@ public class Player extends DynamicBody {
 	 */
 	public void addLevelsData(Levels levels) {
 		this.levels = levels;
+	}
+
+	/**
+	 * Turns the player into a ninja.
+	 */
+	public void ninja() {
+		ninja = true;
+	}
+
+	/**
+	 * Returns whether the player is a ninja or not.
+	 *
+	 * @return True if player is a ninja.
+	 */
+	public boolean isNinja() {
+		return ninja;
 	}
 }
