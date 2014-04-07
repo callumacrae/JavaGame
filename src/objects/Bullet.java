@@ -18,18 +18,15 @@ public class Bullet extends DynamicBody {
 	public Bullet(World world, final boolean cheat) {
 		super(world);
 
-		this.addCollisionListener(new CollisionListener() {
-			@Override
-			public void collide(CollisionEvent collisionEvent) {
-				Body otherBody = collisionEvent.getOtherBody();
+		this.addCollisionListener(collisionEvent -> {
+			Body otherBody = collisionEvent.getOtherBody();
 
-				if (otherBody instanceof Player) {
-					Bullet.this.destroy();
-				}
+			if (otherBody instanceof Player) {
+				this.destroy();
+			}
 
-				if (otherBody instanceof Tile && ((Tile) otherBody).getKillBullets() && !cheat) {
-					Bullet.this.destroy();
-				}
+			if (otherBody instanceof Tile && ((Tile) otherBody).getKillBullets() && !cheat) {
+				this.destroy();
 			}
 		});
 

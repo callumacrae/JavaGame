@@ -51,9 +51,7 @@ public class PointsHandler {
 			return;
 		}
 
-		for (PointsChangeListener listener : listeners) {
-			listener.changed(pointsChangeEvent);
-		}
+		listeners.forEach(listener -> listener.changed(pointsChangeEvent));
 	}
 
 	/**

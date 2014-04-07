@@ -43,8 +43,7 @@ public class Enemy extends DynamicBody {
 					} else if (Enemy.this.getImage() != imageRight) {
 						Enemy.this.setImage(imageRight);
 					}
-				}
-				else {
+				} else {
 					if (player.getPosition().x < Enemy.this.getPosition().x) {
 						if (Enemy.this.getImage() != imageLeftBig) {
 							Enemy.this.setImage(imageLeftBig);
@@ -53,8 +52,6 @@ public class Enemy extends DynamicBody {
 						Enemy.this.setImage(imageRightBig);
 					}
 				}
-
-
 			}
 		});
 	}

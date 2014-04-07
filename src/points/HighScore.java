@@ -26,10 +26,8 @@ public class HighScore {
 	}
 
 	public static void setHighScore(float highScore) {
-		try {
-			FileWriter fw = new FileWriter(file);
+		try (FileWriter fw = new FileWriter(file)) {
 			fw.write(highScore + "\n");
-			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

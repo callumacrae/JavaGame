@@ -32,21 +32,18 @@ public class Player extends DynamicBody {
 		this.setFixedRotation(true);
 
 		// Deduct points when the Player hits a bad guy
-		this.addCollisionListener(new CollisionListener() {
-			@Override
-			public void collide(CollisionEvent collisionEvent) {
-				if (collisionEvent.getOtherBody() instanceof Enemy) {
-					if (levels != null) {
-						levels.getCurrentLevel().restorePlayer();
-					} else {
-						System.out.println("ERROR: Levels data not specified.");
-					}
-
-					Enemy enemy = (Enemy) collisionEvent.getOtherBody();
-					enemy.setLives(enemy.getLives() + 1);
-
-					PointsHandler.removePoints(10);
+		this.addCollisionListener(collisionEvent -> {
+			if (collisionEvent.getOtherBody() instanceof Enemy) {
+				if (levels != null) {
+					levels.getCurrentLevel().restorePlayer();
+				} else {
+					System.out.println("ERROR: Levels data not specified.");
 				}
+
+				Enemy enemy = (Enemy) collisionEvent.getOtherBody();
+				enemy.setLives(enemy.getLives() + 1);
+
+				PointsHandler.removePoints(10);
 			}
 		});
 

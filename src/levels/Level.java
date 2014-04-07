@@ -1,8 +1,6 @@
 package levels;
 
 import city.cs.engine.Body;
-import city.cs.engine.CollisionEvent;
-import city.cs.engine.CollisionListener;
 import city.cs.engine.World;
 import objects.*;
 import org.jbox2d.common.Vec2;
@@ -59,52 +57,43 @@ public class Level {
 		}
 
 		// Draw enemies
-		for (Vec2 enemyPosition : enemiesStart) {
-			final Enemy enemy = new Enemy(world, player);
+		Arrays.stream(enemiesStart).forEach(enemyPosition -> {
+			Enemy enemy = new Enemy(world, player);
 			enemy.setPosition(enemyPosition);
 
-			enemy.addCollisionListener(new CollisionListener() {
-				@Override
-				public void collide(CollisionEvent collisionEvent) {
-					if (collisionEvent.getOtherBody() instanceof Bullet) {
-						if (enemy.getLives() == 1) {
-							enemy.destroy();
-							remainingEnemies--;
+			enemy.addCollisionListener(collisionEvent -> {
+				if (collisionEvent.getOtherBody() instanceof Bullet) {
+					if (enemy.getLives() == 1) {
+						enemy.destroy();
+						remainingEnemies--;
 
-							PointsHandler.addPoints(5);
-						} else {
-							enemy.setLives(enemy.getLives() - 1);
-						}
+						PointsHandler.addPoints(5);
+					} else {
+						enemy.setLives(enemy.getLives() - 1);
+					}
 
-						collisionEvent.getOtherBody().destroy();
+					collisionEvent.getOtherBody().destroy();
 
-						if (remainingEnemies == 0) {
-							for (LevelEventListener listener : listeners) {
-								listener.levelComplete();
-							}
-						}
+					if (remainingEnemies == 0) {
+						listeners.forEach(LevelEventListener::levelComplete);
 					}
 				}
 			});
 
 			bodyArray.add(enemy);
-		}
+		});
 
 		// Position Player
 		restorePlayer();
 
-		for (LevelEventListener listener : listeners) {
-			listener.levelStart();
-		}
+		listeners.forEach(LevelEventListener::levelStart);
 	}
 
 	/**
 	 * Remove the level from the world.
 	 */
 	public void destroy() {
-		for (Body body : bodyArray) {
-			body.destroy();
-		}
+		bodyArray.forEach(Body::destroy);
 	}
 
 	/**

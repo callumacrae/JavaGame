@@ -4,8 +4,6 @@ import levels.Levels;
 import objects.Player;
 import org.jbox2d.common.Vec2;
 import points.HighScore;
-import points.PointsChangeEvent;
-import points.PointsChangeListener;
 import points.PointsHandler;
 
 import javax.swing.*;
@@ -31,25 +29,22 @@ public class PhysicsGame {
 		String text = String.format(pointsText, 0, highScoreString);
 		final JLabel pointsLabel = new JLabel(text);
 
-		PointsHandler.addChangeListener(new PointsChangeListener() {
-			@Override
-			public void changed(PointsChangeEvent pointsChangeEvent) {
-				float points = PointsHandler.getPoints();
-				if (points > highScore) {
-					HighScore.setHighScore(points);
-				}
-
-				String pointsStr = PointsHandler.pointsToString();
-				float high = Math.max(highScore, points);
-				String highStr = PointsHandler.pointsToString(high);
-
-				if (pointsStr.equals(highStr)) {
-					highStr += "!";
-				}
-
-				String text = String.format(pointsText, pointsStr, highStr);
-				pointsLabel.setText(text);
+		PointsHandler.addChangeListener(pointsChangeEvent -> {
+			float points = PointsHandler.getPoints();
+			if (points > highScore) {
+				HighScore.setHighScore(points);
 			}
+
+			String pointsStr = PointsHandler.pointsToString();
+			float high = Math.max(highScore, points);
+			String highStr = PointsHandler.pointsToString(high);
+
+			if (pointsStr.equals(highStr)) {
+				highStr += "!";
+			}
+
+			String newText = String.format(pointsText, pointsStr, highStr);
+			pointsLabel.setText(newText);
 		});
 		pointsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		view.add(pointsLabel, BorderLayout.NORTH);

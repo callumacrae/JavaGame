@@ -41,9 +41,7 @@ public class Level5 extends Level {
 
 			@Override
 			public void levelComplete() {
-				for (Gate gate : gates) {
-					gate.destroy();
-				}
+				gates.forEach(Gate::destroy);
 			}
 		});
 	}
