@@ -111,7 +111,9 @@ public class GameKeyDispatcher extends KeyAdapter {
 
 			// Add points
 			case KeyEvent.VK_P:
-				PointsHandler.addPoints(10);
+				if (cheat) {
+					PointsHandler.addPoints(10);
+				}
 				break;
 		}
 	}
@@ -134,6 +136,11 @@ public class GameKeyDispatcher extends KeyAdapter {
 
 	private void konamiHandler(int keyCode) {
 		lastKeys.add(keyCode);
+
+		// No point in checking again
+		if (cheat) {
+			return;
+		}
 
 		if (lastKeys.size() > konamiKeys.size()) {
 			lastKeys.remove();
